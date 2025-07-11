@@ -16,7 +16,7 @@ from pymongo import MongoClient
 from bson import ObjectId
 import os
 import numpy as np
-import tensorflow as tf
+# import tensorflow as tf  # Temporarily disabled for deployment
 from PIL import Image
 import io
 import json
@@ -119,9 +119,10 @@ try:
     
     # Load disease detection models - separate for image and environmental prediction
     try:
-        # LSTM model for environmental prediction
-        disease_env_model = tf.keras.models.load_model('actual/potato_disease_lstm_model.h5')
-        print("✅ Environmental disease model loaded successfully!")
+        # LSTM model for environmental prediction - temporarily disabled for deployment
+        # disease_env_model = tf.keras.models.load_model('actual/potato_disease_lstm_model.h5')
+        disease_env_model = None  # Temporarily set to None
+        print("⚠️ Environmental disease model temporarily disabled for deployment")
     except Exception as e:
         print(f"❌ Environmental disease model loading failed: {e}")
         disease_env_model = None
@@ -217,19 +218,21 @@ async def detect_disease_from_image(file: UploadFile = File(...)):
         # Load model and class indices if not already loaded
         global disease_image_model, class_indices
         
-        # Explicitly load the image-based disease model
+        # Explicitly load the image-based disease model - temporarily disabled for deployment
         if disease_image_model is None:
             try:
                 model_path = find_model_path()
                 print(f"Loading image disease model from {model_path}")
-                disease_image_model = tf.keras.models.load_model(model_path)
+                # disease_image_model = tf.keras.models.load_model(model_path)
+                disease_image_model = None  # Temporarily set to None
+                print("⚠️ Image disease model temporarily disabled for deployment")
                 
                 # Verify the model input shape to make sure it matches what we expect
-                input_shape = disease_image_model.input_shape
-                print(f"Image disease model input shape: {input_shape}")
+                # input_shape = disease_image_model.input_shape
+                # print(f"Image disease model input shape: {input_shape}")
                 
-                if input_shape and len(input_shape) > 1 and input_shape[1:] != (224, 224, 3):
-                    print(f"Warning: Model expects shape {input_shape}, but we're feeding (224, 224, 3)")
+                # if input_shape and len(input_shape) > 1 and input_shape[1:] != (224, 224, 3):
+                #     print(f"Warning: Model expects shape {input_shape}, but we're feeding (224, 224, 3)")
             except Exception as e:
                 print(f"Error loading disease image model: {e}")
                 print("Will use color analysis fallback method instead")
