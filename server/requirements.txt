@@ -1,6 +1,7 @@
 # Core web framework
 fastapi>=0.104.0
 uvicorn>=0.23.2
+gunicorn>=20.1.0
 starlette>=0.31.1
 
 # Data processing and ML
