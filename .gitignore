@@ -1,0 +1,31 @@
+# Dependencies
+node_modules
+__pycache__/
+*.py[cod]
+*.class
+.env
+
+# Build outputs
+dist/
+build/
+
+# Environment
+.venv/
+venv/
+
+# Editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Keep only these directories
+/*
+!/.git
+!/client/
+!/server/
+!/README.md
+!/.gitignore
+server/deseasedectection/plant_disease_prediction_model.h5
+server/plant_disease_prediction_model.h5
+server/plant_disease_prediction_model.h5
+server/deseasedectection/plant_disease_prediction_model.h5
